@@ -1,1 +1,72 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/dist/css/bootstrap.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+:root {
+  --dominant-color: #E08D8A;
+  --secondary-color: #EBBFC2;
+  --accent-color: #EAB792;
+  --success-color: #2cd440;
+  --misa-color: #DEC9B5;
+  --xxl: 1400px;
+  --xl: 1200px;
+  --lg: 992px;
+  --md: 769px;
+  --sm: 576px;
+  --xs: 350px; 
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  max-width: 1300px;
+  margin: auto;
+  background-color: var(--secondary-color);
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  button, a {
+    background-color: var(--accent-color);
+    border-radius: 20px;
+    padding: 6px 20px;
+    font-size: 24px;
+    border: 1px solid #000;
+    transition: all 0.4s;
+    * {
+      border: none !important;
+    }
+  }
+  button:hover {
+    transition: all 0.4s;
+    transform: scale(1.08);
+  }
+  table {
+    td, th {
+      text-align: center;
+      background-color: var(--misa-color) !important;
+    }
+    * {
+      border: 1px solid #000;
+    }
+  }
+  .pop-up-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 500px;
+    border: 1.5px solid #000;
+    background-color: var(--misa-color);
+    // min-height: 500px;
+    padding: 50px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    h1 {
+      margin-bottom: 1.5rem;
+    }
+  }
+}

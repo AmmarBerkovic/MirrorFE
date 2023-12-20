@@ -1,0 +1,21 @@
+<div class="table-overview-wrapper">
+  <div class="options-area">
+    <div class="filter-wrapper">
+
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th *ngFor="let key of uniqueKeys" scope="col">{{ key | snakeToSpace }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of tableRows">
+        <td>{{ row[0] }}</td>
+        <td *ngFor="let cell of row.slice(1)">{{ cell }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

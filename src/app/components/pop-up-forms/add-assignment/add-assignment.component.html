@@ -1,0 +1,22 @@
+<div class="pop-up-wrapper">
+  <h1>New Assingment</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="" formControlName="title" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Topic</mat-label>
+      <input matInput placeholder="" formControlName="topic" />
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        placeholder="Provide a description..."
+        formControlName="description"
+      ></textarea>
+    </mat-form-field>
+    <button type="submit">Submit</button>
+  </form>
+</div>

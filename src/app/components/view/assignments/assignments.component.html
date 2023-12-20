@@ -1,0 +1,30 @@
+<div class="table-overview-wrapper">
+  <div class="options-area">
+    <div class="filter-wrapper"></div>
+    <button (click)="createAssignment()">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Topic</th>
+        <th scope="col">Description</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let assignment of assignments; let i = index">
+        <th scope="row">{{ i | numberIncrement}}</th>
+        <td>{{ assignment.title }}</td>
+        <td>{{ assignment.topic }}</td>
+        <td>{{ assignment.description }}</td>
+        <td><button (click)="editAssignment(assignment)"><i class="fa-solid fa-wrench"></i></button></td>
+        <td><button (click)="deleteAssignment(assignment.title)"><i class="fa-solid fa-trash"></i></button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
