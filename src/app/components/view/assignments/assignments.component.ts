@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AssignmentsService } from '../../../services/assignments/assignments.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddAssignmentComponent } from '../../pop-up-forms/add-assignment/add-assignment.component';
+import { AssignmentModel } from '../../../models/assignment/assignment';
 
 @Component({
   selector: 'app-assignments',
@@ -43,9 +44,17 @@ export class AssignmentsComponent {
     });
   }
   //property: string, value: string
-  editAssignment(nesto: any){
-    
-    console.log('puskurac',nesto);
-    
+  editAssignment(event: Event, nesto: any) {
+    setColorAndMakeEditable(event);
   }
+}
+
+/** UI - Color and enable editing */
+const setColorAndMakeEditable = (event: Event) => {
+  const targetElement = event?.target as HTMLElement;
+  const trElement = targetElement.closest('tr') as HTMLElement | null;
+  const editableCells = trElement?.querySelectorAll('td.editable');
+  editableCells?.forEach((el) => {
+    el?.toggleAttribute('contenteditable');
+  });
 }

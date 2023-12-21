@@ -19,9 +19,9 @@
     <tbody>
       <tr *ngFor="let assignment of assignments; let i = index">
         <th scope="row">{{ i | numberIncrement }}</th>
-        <td>{{ assignment.title }}</td>
-        <td>{{ assignment.topic }}</td>
-        <td>{{ assignment.description }}</td>
+        <td class="editable">{{ assignment.title }}</td>
+        <td class="editable">{{ assignment.topic }}</td>
+        <td class="editable">{{ assignment.description }}</td>
         <td>
           <button (click)="editAssignment($event, assignment)">
             <i class="fa-solid fa-wrench"></i>

@@ -17,5 +17,12 @@
   }
   table {
     margin: 0px;
+    td {
+      transition: 0.4s all;
+    }
+    td[contenteditable] {
+      transition: 0.4s all;
+      background-color: var(--success-color) !important;
+    }
   }
 }
