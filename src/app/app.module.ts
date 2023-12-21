@@ -15,6 +15,7 @@ import { AddAssignmentComponent } from './components/pop-up-forms/add-assignment
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NumberIncrementPipe } from './components/pipes/numberIncrement/number-increment.pipe';
+import { BooleanToIconPipe } from './components/pipes/booleanToIcon/boolean-to-icon.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { NumberIncrementPipe } from './components/pipes/numberIncrement/number-i
     SnakeToSpacePipe,
     AddAssignmentComponent,
     NumberIncrementPipe,
+    BooleanToIconPipe,
   ],
   imports: [
     BrowserModule,

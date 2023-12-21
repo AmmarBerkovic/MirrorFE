@@ -18,12 +18,20 @@
     </thead>
     <tbody>
       <tr *ngFor="let assignment of assignments; let i = index">
-        <th scope="row">{{ i | numberIncrement}}</th>
+        <th scope="row">{{ i | numberIncrement }}</th>
         <td>{{ assignment.title }}</td>
         <td>{{ assignment.topic }}</td>
         <td>{{ assignment.description }}</td>
-        <td><button (click)="editAssignment(assignment)"><i class="fa-solid fa-wrench"></i></button></td>
-        <td><button (click)="deleteAssignment(assignment.title)"><i class="fa-solid fa-trash"></i></button></td>
+        <td>
+          <button (click)="editAssignment($event, assignment)">
+            <i class="fa-solid fa-wrench"></i>
+          </button>
+        </td>
+        <td>
+          <button (click)="deleteAssignment(assignment.title)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
