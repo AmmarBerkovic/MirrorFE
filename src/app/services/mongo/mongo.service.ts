@@ -23,4 +23,7 @@ export class MongoService {
     const encodedTitle = encodeURIComponent(title);
     return this.http.delete(`${this.ROOT_URL}/${uri}/${encodedTitle}`);
   }
+  public patch(uri: string, oldValue: string, newValue: string, property: string) {
+    return this.http.patch(`${this.ROOT_URL}/${uri}/${property}/${oldValue}`, {newValue: newValue});
+  }
 }

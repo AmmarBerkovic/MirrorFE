@@ -18,4 +18,7 @@ export class AssignmentsService {
   public removeAssignment(title: string) {
     return this.mongo.delete('assignments', title);
   }
+  public updateAssignment(oldValue: string, newValue: string, property: string) {
+    return this.mongo.patch('assignments', oldValue, newValue, property);
+  }
 }

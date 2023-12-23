@@ -17,7 +17,7 @@
   }
   table {
     margin: 0px;
-    td {
+    td, th {
       transition: 0.4s all;
     }
     td[contenteditable] {
