@@ -9,7 +9,6 @@ import { RecordsService } from '../../../services/records/records.service';
 })
 export class RecordsComponent {
   uniqueKeys: string[] = [];
-  test: any[] = [];
   tableRows: any[][] = [];
 
   constructor(private recordsService: RecordsService) {}
@@ -18,26 +17,36 @@ export class RecordsComponent {
     this.getRecords();
   }
   getRecords() {
-    this.recordsService.getRecords().subscribe((records: any[]) => {
-      //** Gathering all titles */
-      this.uniqueKeys = Array.from(
-        new Set(
-          records.flatMap((item: Record) =>
-            item.assignments.flatMap((obj) => Object.keys(obj))
-          )
-        )
-      );
-      //** Array of arrays with boolean values with date on first spot*/
-      this.tableRows = records.map((item) => {
-        const row = [item.date];
-        this.uniqueKeys.forEach((key) => {
-          const assignment: any = item.assignments.find(
-            (obj: any) => obj[key] !== undefined
-          );
-          row.push(assignment ? assignment[key] : '');
-        });
-        return row;
-      });
+    this.recordsService.getRecords().subscribe((records: object[]) => {
+      this.uniqueKeys = getKeysOfRecords(records)
+      this.tableRows = twoDimensionalTable(records, this.uniqueKeys)
     });
   }
+  createRecord() {
+    console.log("Trying to create");
+  }
+}
+
+/** GATHER ALL TITLES FROM RECORDS */
+const getKeysOfRecords = (records: any): string[] => {
+  return Array.from(
+    new Set(
+      records.flatMap((item: Record) =>
+        item.assignments.flatMap((obj) => Object.keys(obj))
+      )
+    )
+  );
+}
+//** Two dimensional array with boolean values with date on first spot*/
+const twoDimensionalTable = (records: any, uniqueKeys: string[]) => {
+  return records.map((item: any) => {
+    const row = [item?.date];
+    uniqueKeys.forEach((key) => {
+      const assignment: any = item.assignments.find(
+        (obj: any) => obj[key] !== undefined
+      );
+      row.push(assignment ? assignment[key] : '');
+    });
+    return row;
+  });
 }

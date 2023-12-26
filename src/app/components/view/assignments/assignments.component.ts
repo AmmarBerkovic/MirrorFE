@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AssignmentsService } from '../../../services/assignments/assignments.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddAssignmentComponent } from '../../pop-up-forms/add-assignment/add-assignment.component';
-import { AssignmentModel } from '../../../models/assignment/assignment';
 
 @Component({
   selector: 'app-assignments',
@@ -11,6 +10,7 @@ import { AssignmentModel } from '../../../models/assignment/assignment';
 })
 export class AssignmentsComponent {
   assignments: any[] = [];
+  readyToDelete: string[] = [];
 
   constructor(
     private assignmentsService: AssignmentsService,
@@ -24,9 +24,9 @@ export class AssignmentsComponent {
     this.assignmentsService
       .listAssignments()
       .subscribe((assignments: any[]) => {
-        //sorting by topics
+        //sorting topics by alphabetical order
         this.assignments = assignments.sort((a, b) =>
-          b.topic.localeCompare(a.topic)
+          a.topic.localeCompare(b.topic)
         );
       });
   }
@@ -38,12 +38,20 @@ export class AssignmentsComponent {
         this.getAssignments();
       });
   }
-  deleteAssignment(title: string) {
-    this.assignmentsService.removeAssignment(title).subscribe(() => {
-      this.getAssignments();
-    });
+  deleteAssignment(event: Event, title: string) {
+    if (isReadyToDelete(title, this.readyToDelete)) {
+      this.assignmentsService.removeAssignment(title).subscribe(() => {
+        this.getAssignments();
+      });
+    } else {
+      changeButtonColor(event, true);
+      this.readyToDelete.push(title);
+      setTimeout(() => {
+        removeFromArray(title, this.readyToDelete);
+        changeButtonColor(event, false);
+      }, 3000);
+    }
   }
-  //property: string, value: string
   editAssignment(event: Event, assignment: any) {
     setColorAndMakeEditable(event);
     const changes = returnChangedProperties(event, assignment);
@@ -90,3 +98,26 @@ const getNearestTrElementsChildren = (
   const trElement = targetElement.closest('tr') as HTMLElement | null;
   return trElement?.querySelectorAll(`td.editable${query}`) || undefined;
 };
+
+const isReadyToDelete = (value: string, readyToDelete: string[]): boolean => {
+  return readyToDelete.some((item) => item.includes(value));
+};
+
+const changeButtonColor = (event: Event, append: boolean) => {
+  let targetElement = event?.target as HTMLElement;
+  if (targetElement.nodeName === 'BUTTON')
+    if (append) targetElement.classList.add('bg-danger');
+    else targetElement.classList.remove('bg-danger');
+  else {
+    if (append) targetElement.closest('button')?.classList.add('bg-danger');
+    else targetElement.closest('button')?.classList.remove('bg-danger');
+  }
+};
+function removeFromArray(
+  target: string,
+  array: string[]
+): string[] | undefined {
+  const index = array.indexOf(target);
+  if (index !== -1) return array.splice(index, 1);
+  return undefined;
+}

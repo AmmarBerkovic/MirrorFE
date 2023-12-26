@@ -28,7 +28,7 @@
           </button>
         </td>
         <td>
-          <button (click)="deleteAssignment(assignment.title)">
+          <button (click)="deleteAssignment($event, assignment?.title)">
             <i class="fa-solid fa-trash"></i>
           </button>
         </td>
