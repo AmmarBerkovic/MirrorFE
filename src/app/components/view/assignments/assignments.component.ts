@@ -20,14 +20,12 @@ export class AssignmentsComponent {
   ngOnInit(): void {
     this.getAssignments();
   }
+  /** CRUD OPERATIONS */
   getAssignments() {
     this.assignmentsService
       .listAssignments()
       .subscribe((assignments: any[]) => {
-        //sorting topics by alphabetical order
-        this.assignments = assignments.sort((a, b) =>
-          a.topic.localeCompare(b.topic)
-        );
+        this.assignments = this.assignmentsService.sortByTopic(assignments);
       });
   }
   createAssignment() {
@@ -39,85 +37,29 @@ export class AssignmentsComponent {
       });
   }
   deleteAssignment(event: Event, title: string) {
-    if (isReadyToDelete(title, this.readyToDelete)) {
+    if (this.assignmentsService.isReadyToDelete(title, this.readyToDelete)) {
       this.assignmentsService.removeAssignment(title).subscribe(() => {
         this.getAssignments();
       });
     } else {
-      changeButtonColor(event, true);
+      this.assignmentsService.changeButtonColor(event, true);
       this.readyToDelete.push(title);
       setTimeout(() => {
-        removeFromArray(title, this.readyToDelete);
-        changeButtonColor(event, false);
+        this.assignmentsService.removeValueFromArray(title, this.readyToDelete);
+        this.assignmentsService.changeButtonColor(event, false);
       }, 3000);
     }
   }
   editAssignment(event: Event, assignment: any) {
-    setColorAndMakeEditable(event);
-    const changes = returnChangedProperties(event, assignment);
+    this.assignmentsService.highlightAndMakeEditable(event);
+    const changes = this.assignmentsService.returnChangedProperties(
+      event,
+      assignment
+    );
     changes.forEach((el) => {
       this.assignmentsService
         .updateAssignment(el.oldValue, el.newValue, el.property)
         .subscribe(() => {});
     });
   }
-}
-
-/** UI - Color and enable editing */
-const setColorAndMakeEditable = (event: Event) => {
-  const editableCells = getNearestTrElementsChildren(event, '');
-  editableCells?.forEach((cell) => {
-    cell?.toggleAttribute('contenteditable');
-  });
-};
-
-const returnChangedProperties = (event: Event, assignment: any): any[] => {
-  const array: object[] = [];
-  const cells =
-    getNearestTrElementsChildren(event, ':not([contenteditable])') ?? [];
-  if (cells?.length === 0) return [];
-  cells.forEach((cell, index) => {
-    const assignmentIndex = index + 1;
-    if (
-      cell?.innerHTML !== assignment[Object.keys(assignment)[assignmentIndex]]
-    ) {
-      const oldValue = assignment[Object.keys(assignment)[assignmentIndex]],
-        newValue = cell?.innerHTML,
-        property = Object.keys(assignment)[assignmentIndex];
-      array.push({ oldValue, newValue, property });
-    }
-  });
-  return array;
-};
-
-const getNearestTrElementsChildren = (
-  event: Event,
-  query: string
-): NodeListOf<Element> | undefined => {
-  const targetElement = event?.target as HTMLElement;
-  const trElement = targetElement.closest('tr') as HTMLElement | null;
-  return trElement?.querySelectorAll(`td.editable${query}`) || undefined;
-};
-
-const isReadyToDelete = (value: string, readyToDelete: string[]): boolean => {
-  return readyToDelete.some((item) => item.includes(value));
-};
-
-const changeButtonColor = (event: Event, append: boolean) => {
-  let targetElement = event?.target as HTMLElement;
-  if (targetElement.nodeName === 'BUTTON')
-    if (append) targetElement.classList.add('bg-danger');
-    else targetElement.classList.remove('bg-danger');
-  else {
-    if (append) targetElement.closest('button')?.classList.add('bg-danger');
-    else targetElement.closest('button')?.classList.remove('bg-danger');
-  }
-};
-function removeFromArray(
-  target: string,
-  array: string[]
-): string[] | undefined {
-  const index = array.indexOf(target);
-  if (index !== -1) return array.splice(index, 1);
-  return undefined;
 }
