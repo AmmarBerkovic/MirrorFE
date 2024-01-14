@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MongoService } from '../mongo/mongo.service';
 import { Assignment } from '../../models/assignment/assignment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ export class AssignmentsService {
   constructor(private mongo: MongoService) {}
 
   /* DATABASE CONTROLLER */
+
   public listAssignments() {
     return this.mongo.get('assignments');
   }
@@ -27,6 +29,7 @@ export class AssignmentsService {
   }
 
   /* CLASS HELPERS */
+
   public sortByTopic(array: Assignment[]) {
     return array.sort((a, b) => a?.topic.localeCompare(b.topic));
   }
@@ -67,6 +70,11 @@ export class AssignmentsService {
           : null;
       })
       .filter(Boolean) as any[];
+  }
+  public getTitles() {
+    return this.listAssignments().pipe(
+      map((assignments: any[]) => assignments.map((el) => el?.title))
+    );
   }
 }
 function getNearestTrElementsChildren(

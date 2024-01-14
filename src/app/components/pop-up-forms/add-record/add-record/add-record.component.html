@@ -1,0 +1,15 @@
+<div class="pop-up-wrapper">
+  <h1>New Record</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div formArrayName="selectedOptions">
+      <div
+        *ngFor="let optionControl of selectedOptions.controls; let i = index"
+      >
+        <mat-checkbox type="checkbox" [formControlName]="i">
+          {{ assignmentTitles[i] }}
+        </mat-checkbox>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</div>

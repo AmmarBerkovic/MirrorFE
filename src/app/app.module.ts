@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -16,6 +15,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NumberIncrementPipe } from './components/pipes/numberIncrement/number-increment.pipe';
 import { BooleanToIconPipe } from './components/pipes/booleanToIcon/boolean-to-icon.pipe';
+import { AddRecordComponent } from './components/pop-up-forms/add-record/add-record/add-record.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { BooleanToIconPipe } from './components/pipes/booleanToIcon/boolean-to-i
     AddAssignmentComponent,
     NumberIncrementPipe,
     BooleanToIconPipe,
+    AddRecordComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { BooleanToIconPipe } from './components/pipes/booleanToIcon/boolean-to-i
     MatDialogModule,
     MatInputModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatCheckboxModule
   ],
   providers: [
     provideClientHydration()

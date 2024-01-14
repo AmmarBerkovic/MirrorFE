@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Record } from '../../../models/record/record';
 import { RecordsService } from '../../../services/records/records.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddRecordComponent } from '../../pop-up-forms/add-record/add-record/add-record.component';
 
 @Component({
   selector: 'app-records',
@@ -11,19 +13,27 @@ export class RecordsComponent {
   uniqueKeys: string[] = [];
   tableRows: any[][] = [];
 
-  constructor(private recordsService: RecordsService) {}
+  constructor(
+    private recordsService: RecordsService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.getRecords();
   }
   getRecords() {
     this.recordsService.getRecords().subscribe((records: object[]) => {
-      this.uniqueKeys = getKeysOfRecords(records)
-      this.tableRows = twoDimensionalTable(records, this.uniqueKeys)
+      this.uniqueKeys = getKeysOfRecords(records);
+      this.tableRows = twoDimensionalTable(records, this.uniqueKeys);
     });
   }
   createRecord() {
-    console.log("Trying to create");
+    this.dialog
+      .open(AddRecordComponent)
+      .afterClosed()
+      .subscribe(() => {
+        //after
+      });
   }
 }
 
@@ -36,7 +46,7 @@ const getKeysOfRecords = (records: any): string[] => {
       )
     )
   );
-}
+};
 //** Two dimensional array with boolean values with date on first spot*/
 const twoDimensionalTable = (records: any, uniqueKeys: string[]) => {
   return records.map((item: any) => {
@@ -49,4 +59,4 @@ const twoDimensionalTable = (records: any, uniqueKeys: string[]) => {
     });
     return row;
   });
-}
+};
