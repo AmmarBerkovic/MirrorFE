@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Record } from '../../../models/record/record';
 import { RecordsService } from '../../../services/records/records.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AddRecordComponent } from '../../pop-up-forms/add-record/add-record/add-record.component';
+import { AddRecordComponent } from '../../pop-up-forms/add-record/add-record.component';
 
 @Component({
   selector: 'app-records',

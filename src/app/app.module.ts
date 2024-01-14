@@ -15,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NumberIncrementPipe } from './components/pipes/numberIncrement/number-increment.pipe';
 import { BooleanToIconPipe } from './components/pipes/booleanToIcon/boolean-to-icon.pipe';
-import { AddRecordComponent } from './components/pop-up-forms/add-record/add-record/add-record.component';
+import { AddRecordComponent } from './components/pop-up-forms/add-record/add-record.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 

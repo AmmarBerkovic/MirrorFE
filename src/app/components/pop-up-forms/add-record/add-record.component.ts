@@ -1,13 +1,7 @@
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormArray,
-  FormControl,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { AssignmentsService } from '../../../../services/assignments/assignments.service';
+import { AssignmentsService } from '../../../services/assignments/assignments.service';
 
 @Component({
   selector: 'app-add-record',
@@ -46,7 +40,9 @@ export class AddRecordComponent {
     return this.form.get('selectedOptions') as FormArray;
   }
   getFormControl(index: number): FormControl {
-    return (this.form.get('selectedOptions') as FormArray).at(index).get('value') as FormControl;
+    return (this.form.get('selectedOptions') as FormArray)
+      .at(index)
+      .get('value') as FormControl;
   }
   onSubmit() {
     this.dialogRef.close();
