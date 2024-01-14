@@ -34,22 +34,23 @@ export class AddRecordComponent {
     this.form = this.fb.group({
       selectedOptions: this.fb.array([]),
     });
-
-    this.assignmentTitles.forEach((option, index) => {
-      const control = this.fb.control(false);
-      (this.form.get('selectedOptions') as FormArray).push(control);
+    this.assignmentTitles.forEach((label) => {
+      const checkboxGroup = this.fb.group({
+        label: label,
+        value: false,
+      });
+      (this.form.get('selectedOptions') as FormArray).push(checkboxGroup);
     });
   }
   get selectedOptions(): FormArray {
     return this.form.get('selectedOptions') as FormArray;
   }
-  // onCheckChange(event: Event) {
-  //   console.log(event.target);
-  // }
+  getFormControl(index: number): FormControl {
+    return (this.form.get('selectedOptions') as FormArray).at(index).get('value') as FormControl;
+  }
   onSubmit() {
     this.dialogRef.close();
-    const selectedValues = this.form.value.selectedOptions;
-
-    console.log('Selected values:', selectedValues);
+    const { selectedOptions } = this.form.value;
+    console.log('Selected values:', selectedOptions);
   }
 }

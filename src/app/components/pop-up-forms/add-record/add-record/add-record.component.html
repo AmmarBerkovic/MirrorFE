@@ -2,11 +2,9 @@
   <h1>New Record</h1>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div formArrayName="selectedOptions">
-      <div
-        *ngFor="let optionControl of selectedOptions.controls; let i = index"
-      >
-        <mat-checkbox type="checkbox" [formControlName]="i">
-          {{ assignmentTitles[i] }}
+      <div *ngFor="let checkbox of selectedOptions.controls; let i = index">
+        <mat-checkbox [formControl]="getFormControl(i)">
+          {{ checkbox.value.label }}
         </mat-checkbox>
       </div>
     </div>
