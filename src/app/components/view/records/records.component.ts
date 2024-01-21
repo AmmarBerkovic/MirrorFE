@@ -15,7 +15,7 @@ export class RecordsComponent {
 
   constructor(
     private recordsService: RecordsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
