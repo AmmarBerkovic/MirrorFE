@@ -2,12 +2,20 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AssignmentsService } from '../../../services/assignments/assignments.service';
+import { Record } from '../../../models/record/record';
+import moment from 'moment';
+import { RecordsService } from '../../../services/records/records.service';
 
+interface CheckboxInput {
+  label: string;
+  value: boolean;
+}
 @Component({
   selector: 'app-add-record',
   templateUrl: './add-record.component.html',
   styleUrl: './add-record.component.scss',
 })
+
 export class AddRecordComponent {
   form!: FormGroup;
   assignmentTitles: string[] = [];
@@ -15,7 +23,8 @@ export class AddRecordComponent {
   constructor(
     private dialogRef: MatDialogRef<AddRecordComponent>,
     private fb: FormBuilder,
-    private assignmentsService: AssignmentsService
+    private assignmentsService: AssignmentsService,
+    private recordsService: RecordsService
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +55,13 @@ export class AddRecordComponent {
   }
   onSubmit() {
     this.dialogRef.close();
-    const { selectedOptions } = this.form.value;
-    console.log('Selected values:', selectedOptions);
+    const formValues: CheckboxInput[] = this.form.value.selectedOptions;
+    const formattedDate = moment(new Date()).format('DD/MM/YYYY');
+    const transformedArray = formValues.map(({ label, value }) => ({ [label]: value }));
+    const record = new Record(formattedDate, transformedArray);
+    this.recordsService.createRecord(record).subscribe(el => {
+      console.log("Registered Record!!!");
+      
+    });
   }
 }

@@ -32,7 +32,7 @@ export class RecordsComponent {
       .open(AddRecordComponent)
       .afterClosed()
       .subscribe(() => {
-        //after
+        this.getRecords();
       });
   }
 }

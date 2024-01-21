@@ -16,8 +16,8 @@ export class MongoService {
   public get(uri: string): Observable<Assignment[] | Record[]> {
     return this.http.get<Assignment[] | Record[]>(`${this.ROOT_URL}/${uri}`);
   }
-  public post(uri: string, assignment: Assignment): Observable<Assignment> {
-    return this.http.post<Assignment>(`${this.ROOT_URL}/${uri}`, assignment);
+  public post(uri: string, entity: Assignment | Record): Observable<Assignment | Record> {
+    return this.http.post<Assignment>(`${this.ROOT_URL}/${uri}`, entity);
   }
   public delete(uri: string, title: string) {
     const encodedTitle = encodeURIComponent(title);

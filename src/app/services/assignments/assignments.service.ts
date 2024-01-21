@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 export class AssignmentsService {
   constructor(private mongo: MongoService) {}
 
-  /* DATABASE CONTROLLER */
+  /* DATABASE CONTROLLERS */
 
   public listAssignments() {
     return this.mongo.get('assignments');
