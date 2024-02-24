@@ -13,7 +13,7 @@ export class MongoService {
     this.ROOT_URL = 'http://localhost:5000';
   }
 
-  public get(uri: string): Observable<Assignment[] | Record[]> {
+  public get(uri: string): Observable<Assignment[] | any[]> {
     return this.http.get<Assignment[] | Record[]>(`${this.ROOT_URL}/${uri}`);
   }
   public post(uri: string, entity: Assignment | Record): Observable<Assignment | Record> {

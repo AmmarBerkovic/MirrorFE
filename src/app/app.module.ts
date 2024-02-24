@@ -21,12 +21,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { SnakeToSpacePipe } from './components/pipes/snakeToSpace/snake-to-space.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NumberIncrementPipe } from './components/pipes/numberIncrement/number-increment.pipe';
 import { BooleanToIconPipe } from './components/pipes/booleanToIcon/boolean-to-icon.pipe';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSliderModule } from '@angular/material/slider'
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -47,11 +52,16 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     AppRoutingModule,
     HttpClientModule,
     MatDialogModule,
-    MatPaginatorModule,
     MatInputModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatSliderModule,
+    MatCardModule,
+    MatFormFieldModule
   ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],

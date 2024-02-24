@@ -1,0 +1,12 @@
+mat-card {
+  background-color: var(--dominant-color);
+  border: 1px solid black;
+  border-radius: 20px;
+  mat-form-field > * {
+    background-color: var(--secondary-color) !important;
+  }
+  mat-paginator {
+    background-color: var(--dominant-color);
+    border-radius: 0px 0px 20px 20px;
+  }
+}
